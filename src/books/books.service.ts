@@ -35,4 +35,20 @@ export class BooksService {
 
     return book;
   }
+
+  // Update a Book by ID => PUT /books/:id
+  async update(id: string, body: Book): Promise<Book | null> {
+    const book = await this.repo.findOne({
+      where: { id },
+    });
+
+    if (!book) {
+      throw new NotFoundException('Book not found.');
+    }
+
+    // target is book and assign it to body
+    Object.assign(book, body);
+
+    return this.repo.save(book);
+  }
 }
