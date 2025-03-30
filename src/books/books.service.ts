@@ -51,4 +51,17 @@ export class BooksService {
 
     return this.repo.save(book);
   }
+
+  // Delete a Book by ID => DELETE /books/:id
+  async remove(id: string): Promise<Book> {
+    const book = await this.repo.findOne({
+      where: { id },
+    });
+
+    if (!book) {
+      throw new NotFoundException('Book not found.');
+    }
+
+    return this.repo.remove(book);
+  }
 }
