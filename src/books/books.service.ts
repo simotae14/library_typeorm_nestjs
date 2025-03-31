@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './book.entity';
@@ -14,11 +16,12 @@ export class BooksService {
     return this.repo.find();
   }
 
-  create(book: Book): Promise<Book> {
+  create(book: Book, user: any): Promise<Book> {
     const newBook = this.repo.create({
       name: book.name,
       price: book.price,
       author: book.author,
+      user: user.id,
     });
 
     return this.repo.save(newBook);

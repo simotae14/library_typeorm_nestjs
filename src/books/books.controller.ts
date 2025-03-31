@@ -23,7 +23,13 @@ export class BooksController {
 
   @Post()
   createBook(@Body() body: CreateBookDto): Promise<Book> {
-    return this.bookService.create(body);
+    const user = {
+      id: 'fe2efbe2-2450-4f59-8f0b-2d33267ae56d',
+      email: 'test@gmail.com',
+      password: '12345678',
+    };
+
+    return this.bookService.create(body, user);
   }
 
   @Get(':id')
